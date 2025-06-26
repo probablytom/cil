@@ -3018,6 +3018,9 @@ let initGccBuiltins () : unit =
   H.add h "__builtin___vsnprintf_chk" (intType, [ charPtrType; sizeType; intType; sizeType; charConstPtrType; TBuiltin_va_list [] ], false);
   H.add h "__builtin___vsprintf_chk" (intType, [ charPtrType; intType; sizeType; charConstPtrType; TBuiltin_va_list [] ], false);
 
+  H.add h "__builtin_assume" (voidType, [ boolType ], false); 
+  H.add h "__builtin_rotateleft32" (uintType, [ uintType; uintType ], false);
+
   H.add h "__builtin_acos" (doubleType, [ doubleType ], false);
   H.add h "__builtin_acosf" (floatType, [ floatType ], false);
   H.add h "__builtin_acosl" (longDoubleType, [ longDoubleType ], false);
