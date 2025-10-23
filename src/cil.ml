@@ -3349,9 +3349,9 @@ class defaultCilPrinterClass : cilPrinter = object (self)
     (* First the storage modifiers *)
     text (if v.vinline then "__inline " else "")
       ++ d_storage () v.vstorage
-      ++ (self#pType (Some (text v.vname)) () v.vtype)
-      ++ text " "
       ++ self#pAttrs () v.vattr
+      ++ text " "
+      ++ (self#pType (Some (text v.vname)) () v.vtype)
 
   (*** L-VALUES ***)
   method pLval () (lv:lval) =  (* lval (base is 1st field)  *)
