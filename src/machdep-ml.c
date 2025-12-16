@@ -229,6 +229,7 @@ int main(int argc, char **argv)
     alignof_longdouble = (intptr_t)(&((struct s1*)0)->ld);
   }
 
+#ifdef HAVE_FLOAT128_DEF
   // The alignment of float128
   {
     struct s1 {
@@ -237,6 +238,9 @@ int main(int argc, char **argv)
     };
     alignof_float128 = (intptr_t)(&((struct s1*)0)->ld);
   }
+#else
+  alignof_float128 = 0;
+#endif
 
 #ifdef HAVE_FLOAT16_DEF
   // The alignment of float16
@@ -278,6 +282,7 @@ int main(int argc, char **argv)
     alignof_longdoublecomplex = (intptr_t)(&((struct s1*)0)->ld);
   }
 
+#ifdef HAVE_FLOAT128_DEF
   // The alignment of float128 complex
   {
     struct s1 {
@@ -286,6 +291,9 @@ int main(int argc, char **argv)
     };
     alignof_float128complex = (intptr_t)(&((struct s1*)0)->ld);
   }
+#else
+  alignof_float128complex = 0;
+#endif
 
 #ifdef HAVE_FLOAT16_DEF
   // The alignment of float16 complex
@@ -354,7 +362,11 @@ int main(int argc, char **argv)
 #endif
 	     (int)sizeof(float), alignof_float, (int)sizeof(double), alignof_double,
 	     (int)sizeof(long double), alignof_longdouble,
+#ifdef HAVE_FLOAT128_DEF
       (int)sizeof(_Float128), alignof_float128,
+#else
+      0, 0,
+#endif
 #ifdef HAVE_FLOAT16_DEF
        (int)sizeof(_Float16), alignof_float16,
 #else
@@ -362,7 +374,11 @@ int main(int argc, char **argv)
 #endif
        (int)sizeof(float _Complex), alignof_floatcomplex, (int)sizeof(double _Complex), alignof_doublecomplex,
 	     (int)sizeof(long double _Complex), alignof_longdoublecomplex,
+#ifdef HAVE_FLOAT128_DEF
        (int)sizeof(_Float128 _Complex), alignof_float128complex,
+#else
+       0, 0,
+#endif
 #ifdef HAVE_FLOAT16_DEF
        (int)sizeof(_Float16 _Complex), alignof_float16complex,
 #else
@@ -401,7 +417,11 @@ int main(int argc, char **argv)
 #endif
       printf("\t sizeof_double              = %d;\n", (int)sizeof(double));
       printf("\t sizeof_longdouble          = %d;\n", (int)sizeof(long double));
+#ifdef HAVE_FLOAT128_DEF
       printf("\t sizeof_float128            = %d;\n", (int)sizeof(_Float128));
+#else
+      printf("\t sizeof_float128            = %d;\n", 0);
+#endif
 #ifdef HAVE_FLOAT16_DEF
       printf("\t sizeof_float16             = %d;\n", (int)sizeof(_Float16));
 #else
@@ -410,7 +430,11 @@ int main(int argc, char **argv)
       printf("\t sizeof_floatcomplex        = %d;\n", (int)sizeof(float _Complex));
       printf("\t sizeof_doublecomplex       = %d;\n", (int)sizeof(double _Complex));
       printf("\t sizeof_longdoublecomplex   = %d;\n", (int)sizeof(long double _Complex));
+#ifdef HAVE_FLOAT128_DEF
       printf("\t sizeof_float128complex     = %d;\n", (int)sizeof(_Float128 _Complex));
+#else
+      printf("\t sizeof_float128complex     = %d;\n", 0);
+#endif
 #ifdef HAVE_FLOAT16_DEF
       printf("\t sizeof_float16complex      = %d;\n", (int)sizeof(_Float16 _Complex));
 #else
@@ -438,7 +462,11 @@ int main(int argc, char **argv)
 #endif
       printf("\t alignof_double             = %d;\n", alignof_double);
       printf("\t alignof_longdouble         = %d;\n", alignof_longdouble);
+#ifdef HAVE_FLOAT128_DEF
       printf("\t alignof_float128           = %d;\n", alignof_float128);
+#else
+      printf("\t alignof_float128           = %d;\n", 0);
+#endif
 #ifdef HAVE_FLOAT16_DEF
       printf("\t alignof_float16            = %d;\n", alignof_float16);
 #else
@@ -447,7 +475,11 @@ int main(int argc, char **argv)
       printf("\t alignof_floatcomplex       = %d;\n", alignof_floatcomplex);
       printf("\t alignof_doublecomplex      = %d;\n", alignof_doublecomplex);
       printf("\t alignof_longdoublecomplex  = %d;\n", alignof_longdoublecomplex);
+#ifdef HAVE_FLOAT128_DEF
       printf("\t alignof_float128complex    = %d;\n", alignof_float128complex);
+#else
+      printf("\t alignof_float128complex    = %d;\n", 0);
+#endif
 #ifdef HAVE_FLOAT16_DEF
       printf("\t alignof_float16complex     = %d;\n", alignof_float16complex);
 #else

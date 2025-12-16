@@ -34,6 +34,11 @@ let underscore_name_code = {|
 int main() { __asm__("jmp _main"); }
 |}
 
+let have_float128_code = {|
+_Float128 x;
+int main() { return 0; }
+|}
+
 let have_float16_code = {|
 _Float16 x;
 int main() { return 0; }
@@ -97,6 +102,7 @@ let () =
         let have_builtin_va_list = C.c_test c ~c_flags:!c_flags builtin_va_list_code in
         let thread_is_keyword = not @@ C.c_test c ~c_flags:!c_flags thread_is_keyword_code in
         let underscore_name = C.c_test c ~c_flags:!c_flags underscore_name_code in
+        let have_float128 = C.c_test c ~c_flags:!c_flags have_float128_code in
         let have_float16 = C.c_test c ~c_flags:!c_flags have_float16_code in
 
         C.C_define.gen_header_file c ~fname:!fname [
@@ -109,6 +115,7 @@ let () =
           ("HAVE_BUILTIN_VA_LIST_DEF", Switch have_builtin_va_list);
           ("THREAD_IS_KEYWORD_DEF", Switch thread_is_keyword);
           ("UNDERSCORE_NAME_DEF", Switch underscore_name);
+          ("HAVE_FLOAT128_DEF", Switch have_float128);
           ("HAVE_FLOAT16_DEF", Switch have_float16);
 
           ("TYPE_SIZE_T", String (cil_check_integer_type c "size_t"));
